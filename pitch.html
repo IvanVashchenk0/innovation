@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Driven House Utilities Controls</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            max-width: 900px;
+            margin: 0 auto 20px;
+            font-weight: 400;
+        }
+
+        .hero-byline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            max-width: 850px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-image-container {
+            max-width: 900px;
+            margin: 40px auto;
+            height: 450px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-image-placeholder {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-callouts {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px auto;
+            flex-wrap: wrap;
+            max-width: 1000px;
+        }
+
+        .hero-callout {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-callout-metric {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .hero-callout-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .hero-ctas {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-cta-primary {
+            display: inline-block;
+            padding: 15px 35px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-cta-secondary {
+            display: inline-block;
+            padding: 15px 35px;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .hero-cta-secondary:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 20px;
+            background: white;
+            margin-bottom: 2px;
+        }
+
+        .section:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .section-content.reverse {
+            direction: rtl;
+        }
+
+        .section-content.reverse > * {
+            direction: ltr;
+        }
+
+        .section-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            line-height: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        .section-text {
+            font-size: 1.1rem;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .section-text p {
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .stat {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* Image Container */
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-placeholder {
+            color: #a0aec0;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .benefit-card p {
+            color: #4a5568;
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-byline {
+                font-size: 1rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-image-container {
+                height: 300px;
+                margin: 30px auto;
+            }
+
+            .hero-callouts {
+                gap: 20px;
+            }
+
+            .hero-callout {
+                min-width: 150px;
+            }
+
+            .hero-callout-metric {
+                font-size: 1.5rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-cta-primary,
+            .hero-cta-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-content.reverse {
+                direction: ltr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .section-text {
+                font-size: 1rem;
+            }
+
+            .image-container {
+                height: 300px;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-section p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <h1>AI-Driven House Utilities Controls</h1>
+            <p class="hero-subtitle">Transforming energy, water, and comfort with predictive, data-driven control.</p>
+            <p class="hero-byline">Ivan Vashchenko — Mechanical Engineering & Computer Science</p>
+            <p class="hero-description">A lightweight sensor + simulation + advisory system that predicts failures, trims waste, and boosts comfort at home and across campuses.</p>
+            
+            <!-- Hero Image -->
+            <div class="hero-image-container">
+                <img src="output (5).jpg" alt="AI Dashboard Visualization - Building Health">
+            </div>
+            
+            <!-- Quick Callouts -->
+            <div class="hero-callouts">
+                <div class="hero-callout">
+                    <span class="hero-callout-metric">↓ 15–30%</span>
+                    <span class="hero-callout-label">Energy</span>
+                </div>
+                <div class="hero-callout">
+                    <span class="hero-callout-metric">↓ 20–40%</span>
+                    <span class="hero-callout-label">Water Loss</span>
+                </div>
+                <div class="hero-callout">
+                    <span class="hero-callout-metric">↓ 25–50%</span>
+                    <span class="hero-callout-label">Unplanned Outages</span>
+                </div>
+            </div>
+            
+            <!-- CTAs -->
+            <div class="hero-ctas">
+                <a href="#build" class="hero-cta-primary">See the 3-Step Build</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 1: Family Costs -->
+    <div class="section">
+        <div class="section-content">
+            <div>
+                <div class="section-number">1</div>
+                <h2 class="section-title">How Much Per Family?</h2>
+                <div class="section-text">
+                    <p><span class="stat">$3,000–$5,000</span></p>
+                    <p>On average, a family of two in the U.S. spends <strong>$2,500–$3,500 per year</strong> on utilities (electricity, heating, cooling, water).</p>
+                    <p class="highlight">That's money that could instead go to vacations, investments, or education — but it's literally burned away.</p>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="man-and-woman-together-paying-utility-bills-for-electricity-family-budget-people-with-invoice-and-electricity-meter-calculate-payment-cartoon-flat-2T5N0A5.jpg" alt="Family utility costs">
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2: Institutional Scale -->
+    <div class="section">
+        <div class="section-content reverse">
+            <div>
+                <div class="section-number">2</div>
+                <h2 class="section-title">Bigger Scale, Bigger Problem</h2>
+                <div class="section-text">
+                    <p>For institutions like hospitals, schools, factories, or colleges, the problem multiplies.</p>
+                    <p><span class="stat">$2–4 Million</span></p>
+                    <p>A small liberal arts college with 20–30 buildings can spend <strong>$2–4 million per year</strong> on utilities.</p>
+                    <p>And when systems fail, restoration or replacement projects can cost <strong>$10–20 million over a decade</strong>.</p>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="output.jpg" alt="College campus">
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: Current Limitations -->
+    <div class="section">
+        <div class="section-content">
+            <div>
+                <div class="section-number">3</div>
+                <h2 class="section-title">Excellent Work, But No Prediction</h2>
+                <div class="section-text">
+                    <p>Plumbers, HVAC engineers, and electricians do an <strong>excellent job</strong> at repairing and maintaining.</p>
+                    <p class="highlight">But there is no real-time prediction or analytics system to know exactly when things will break or how to prevent waste.</p>
+                    <p>An engineer might estimate a pipe lasts 5 years — but if it fails at 4.5 years, you face a <strong>huge surprise expense</strong>.</p>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="output (1).jpg" alt="Maintenance work">
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: The Solution -->
+    <div class="section">
+        <div class="section-content reverse">
+            <div>
+                <div class="section-number">4</div>
+                <h2 class="section-title">The Solution: AI-Driven Controls</h2>
+                <div class="section-text">
+                    <p><span class="highlight">AI continuously monitors your house or campus — 24/7, 365 days a year.</span></p>
+                    <p>It gives <strong>precise insights</strong>: predicts leaks, measures efficiency drops, recommends preventive steps.</p>
+                    <p>Instead of guessing, you get <strong>data-driven warnings</strong> and <strong>cost-saving suggestions</strong> in real time.</p>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="output (2).jpg" alt="AI monitoring dashboard">
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 5: Job Creation -->
+    <div class="section">
+        <div class="section-content">
+            <div>
+                <div class="section-number">5</div>
+                <h2 class="section-title">Creates More Jobs — Specialized & Strategic</h2>
+                <div class="section-text">
+                    <p class="highlight">In this case, AI doesn't replace jobs — it creates better ones.</p>
+                    <p>Engineers and technicians get to work on <strong>higher-value tasks</strong>: strategic planning, precise interventions, sustainability projects.</p>
+                    <p>Job descriptions become more <strong>specialized, with purpose and direction</strong> — not just emergency fixes.</p>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="output (3).jpg" alt="Engineers at work">
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: Benefits Summary -->
+    <div class="section" style="padding-bottom: 0;">
+        <div class="container">
+            <div class="section-number" style="margin: 0 auto 30px; display: block; width: 50px;">6</div>
+            <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">The Bottom Line</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💼</div>
+                    <h3>More Jobs</h3>
+                    <p>Higher-value, specialized positions for engineers and technicians</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Less Waste</h3>
+                    <p>Significant cost savings for families and institutions</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">✨</div>
+                    <h3>Better Quality of Life</h3>
+                    <p>At home, on campuses, and across industries</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 7: How to Build -->
+    <div class="section" id="build">
+        <div class="container">
+            <div class="section-number" style="margin: 0 auto 30px; display: block; width: 50px;">7</div>
+            <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">How to Build It</h2>
+            
+            <!-- Step 1: Data Gathering -->
+            <div style="margin-bottom: 40px; padding: 30px; background: #f8f9fa; border-radius: 12px; border-left: 5px solid #667eea;">
+                <h3 style="font-size: 1.8rem; color: #2d3748; margin-bottom: 20px;">
+                    <span style="color: #667eea; font-weight: 700;">1)</span> Data Gathering
+                </h3>
+                
+                <p style="color: #4a5568; line-height: 1.8; margin-bottom: 15px;">
+                    Capture 2–4 weeks of time-series (temperature, ∆P/pressure, flow, power, humidity) plus weather and occupancy notes, and map zones/equipment/sensors.
+                </p>
+                
+                <p style="color: #4a5568; line-height: 1.8; font-style: italic;">
+                    This establishes a clean baseline and real event labels so the model reflects how the system actually behaves.
+                </p>
+            </div>
+            
+            <!-- Step 2: Simulation -->
+            <div style="margin-bottom: 40px; padding: 30px; background: #f8f9fa; border-radius: 12px; border-left: 5px solid #764ba2;">
+                <h3 style="font-size: 1.8rem; color: #2d3748; margin-bottom: 20px;">
+                    <span style="color: #764ba2; font-weight: 700;">2)</span> Simulation
+                </h3>
+                
+                <p style="color: #4a5568; line-height: 1.8; margin-bottom: 15px;">
+                    Build a small digital twin (RC thermal + coil ∆T/∆P + fan/pump curves) driven by your gathered data, then compare baseline rules to MPC on 30-day "what-if" runs.
+                </p>
+                
+                <p style="color: #4a5568; line-height: 1.8; font-style: italic;">
+                    Show clear KPIs (energy, water, comfort) and the top recommended actions with simple "why" explanations.
+                </p>
+            </div>
+            
+            <!-- Step 3: Embedded Coding -->
+            <div style="margin-bottom: 40px; padding: 30px; background: #f8f9fa; border-radius: 12px; border-left: 5px solid #667eea;">
+                <h3 style="font-size: 1.8rem; color: #2d3748; margin-bottom: 20px;">
+                    <span style="color: #667eea; font-weight: 700;">3)</span> Embedded Coding
+                </h3>
+                
+                <p style="color: #4a5568; line-height: 1.8; margin-bottom: 15px;">
+                    Deploy a tiny sensor kit and firmware to stream features (rolling ∆T, RMS vibration, pressure ratios) over MQTT and surface two clear alerts in a mini web UI.
+                </p>
+                
+                <p style="color: #4a5568; line-height: 1.8; font-style: italic;">
+                    This turns insights into live, trusted signals—ready for a safe advisory-mode demo.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="container">
+            <h2>A Win For Everyone</h2>
+            <p><strong>More jobs. Less waste of money. Higher quality of life</strong> — at home, on campuses, and across industries.</p>
+            <p>That's not just a win for families. It's a win for workers, for institutions, and for the planet.</p>
+            <a href="#contact" class="cta-button">Get Started Today</a>
+        </div>
+    </div>
+</body>
+</html>
+
